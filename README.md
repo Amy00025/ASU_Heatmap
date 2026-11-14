@@ -8,7 +8,6 @@ An interactive live crowd density, campus heatmap, and dwell time intelligence p
 
 ## 👥 Project Team & Attribution
 - **Team**: **Delta Y**
-- **Author**: Anurag Singh
 - **Institution**: Arizona State University (Tempe, AZ)
 
 ---

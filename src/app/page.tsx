@@ -148,8 +148,6 @@ export default function CrowdTrackerDashboard() {
                   <span>Team Delta Y</span>
                 </span>
                 <span className="text-slate-300">•</span>
-                <span>Made by <strong className="text-slate-700 font-semibold">Anurag Singh</strong></span>
-                <span className="text-slate-300">•</span>
                 <span className="text-slate-600 font-medium">Arizona State University</span>
               </div>
             </div>
@@ -448,7 +446,7 @@ export default function CrowdTrackerDashboard() {
             <span className="text-slate-300">•</span>
             <span>Team <strong className="text-slate-800 font-bold">Delta Y</strong></span>
             <span className="text-slate-300">•</span>
-            <span>Made by <strong className="text-slate-700 font-semibold">Anurag Singh</strong></span>
+            <span>Arizona State University</span>
           </div>
         </div>
       </footer>
