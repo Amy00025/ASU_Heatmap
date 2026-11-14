@@ -144,6 +144,10 @@ export default function CrowdTrackerDashboard() {
                   &ldquo;By the student, For the student.&rdquo;
                 </span>
                 <span className="text-slate-300">•</span>
+                <span className="inline-flex items-center space-x-1 text-slate-800 font-bold bg-slate-100 border border-slate-200/80 px-2 py-0.5 rounded-md">
+                  <span>Team Delta Y</span>
+                </span>
+                <span className="text-slate-300">•</span>
                 <span>Made by <strong className="text-slate-700 font-semibold">Anurag Singh</strong></span>
                 <span className="text-slate-300">•</span>
                 <span className="text-slate-600 font-medium">Arizona State University</span>
@@ -439,8 +443,10 @@ export default function CrowdTrackerDashboard() {
             <span className="text-slate-300">•</span>
             <span className="text-slate-600">Arizona State University · Tempe Campus</span>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center flex-wrap gap-2">
             <span className="italic text-asu-maroon font-semibold">&ldquo;By the student, For the student.&rdquo;</span>
+            <span className="text-slate-300">•</span>
+            <span>Team <strong className="text-slate-800 font-bold">Delta Y</strong></span>
             <span className="text-slate-300">•</span>
             <span>Made by <strong className="text-slate-700 font-semibold">Anurag Singh</strong></span>
           </div>
