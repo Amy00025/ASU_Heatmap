@@ -1,34 +1,65 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LocationRecord } from '@/types';
 import { getCrowdBadgeColor } from '@/lib/api';
-import { Clock, Users, MapPin, ChevronRight, Dumbbell, BookOpen, Utensils, Building2, ExternalLink } from 'lucide-react';
+import {
+  Clock,
+  Users,
+  MapPin,
+  ChevronRight,
+  Dumbbell,
+  BookOpen,
+  Utensils,
+  Building2,
+  ExternalLink,
+} from 'lucide-react';
 
 interface LocationCardProps {
   location: LocationRecord;
   isSelected: boolean;
   onSelect: (id: string) => void;
+  animationDelayMs?: number;
 }
 
 export const LocationCard: React.FC<LocationCardProps> = ({
   location,
   isSelected,
   onSelect,
+  animationDelayMs = 0,
 }) => {
   const badge = getCrowdBadgeColor(location.crowdLevel);
+  const [barWidth, setBarWidth] = useState(0);
+
+  useEffect(() => {
+    setBarWidth(0);
+    const preferReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (preferReduced) {
+      setBarWidth(Math.min(100, location.occupancyPercentage));
+      return;
+    }
+
+    const start = window.setTimeout(() => {
+      setBarWidth(Math.min(100, location.occupancyPercentage));
+    }, 40 + animationDelayMs);
+
+    return () => window.clearTimeout(start);
+  }, [location.occupancyPercentage, location.id, animationDelayMs]);
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'Fitness':
-        return <Dumbbell className="w-3.5 h-3.5" />;
+        return <Dumbbell className="h-3.5 w-3.5" />;
       case 'Study':
-        return <BookOpen className="w-3.5 h-3.5" />;
+        return <BookOpen className="h-3.5 w-3.5" />;
       case 'Dining':
-        return <Utensils className="w-3.5 h-3.5" />;
+        return <Utensils className="h-3.5 w-3.5" />;
       case 'Union':
       default:
-        return <Building2 className="w-3.5 h-3.5" />;
+        return <Building2 className="h-3.5 w-3.5" />;
     }
   };
 
@@ -46,102 +77,107 @@ export const LocationCard: React.FC<LocationCardProps> = ({
   return (
     <div
       onClick={() => onSelect(location.id)}
-      className={`group relative bg-white border rounded-2xl p-4.5 pb-4.5 transition-all duration-200 cursor-pointer ${
+      className={`group relative cursor-pointer rounded-2xl border bg-white px-5 py-5 transition-all duration-200 dark:bg-slate-900 sm:px-6 sm:py-5 ${
         isSelected
-          ? 'border-asu-maroon ring-1 ring-asu-maroon/20 bg-rose-50/15 shadow-sm'
-          : 'border-slate-200/80 hover:border-slate-300 hover:shadow-xs shadow-none'
+          ? 'border-asu-maroon bg-rose-50/15 shadow-sm ring-1 ring-asu-maroon/20 dark:bg-rose-950/20'
+          : 'border-slate-300 shadow-sm hover:border-slate-400 hover:shadow-md dark:border-slate-600 dark:hover:border-slate-500'
       }`}
     >
-      {/* Selection Left Accent Bar */}
       {isSelected && (
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-asu-maroon rounded-l-2xl" />
+        <div className="absolute bottom-0 left-0 top-0 w-1 rounded-l-2xl bg-asu-maroon" />
       )}
 
-      {/* Header Row: Title & Badge */}
-      <div className="flex items-start justify-between gap-3 mb-2.5">
-        <div>
-          <div className="flex items-center space-x-2 mb-1">
-            <span className="flex items-center space-x-1.5 text-[11px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/70">
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <span className="flex items-center space-x-1.5 rounded-md border border-slate-200/70 bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200">
               <span className="text-asu-maroon">{getCategoryIcon(location.category)}</span>
               <span>{location.category}</span>
             </span>
-            <span className="text-[11px] text-slate-400 font-mono font-medium">{location.lastUpdated}</span>
+            <span className="font-mono text-[11px] font-medium text-slate-400">
+              {location.lastUpdated}
+            </span>
           </div>
-          <h4 className="text-sm font-bold text-slate-900 group-hover:text-asu-maroon transition-colors line-clamp-1">
+          <h4 className="line-clamp-2 text-sm font-bold leading-snug text-slate-900 transition-colors group-hover:text-asu-maroon dark:text-white">
             {location.name}
           </h4>
         </div>
 
-        {/* Crowd Badge */}
         <div
-          className={`flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full border text-[11px] font-semibold shrink-0 ${badge.bg} ${badge.text} ${badge.border}`}
+          className={`mt-0.5 flex shrink-0 items-center space-x-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold ${badge.bg} ${badge.text} ${badge.border}`}
         >
-          <span className={`w-1.5 h-1.5 rounded-full ${badge.indicator} animate-pulse`} />
+          <span className={`h-1.5 w-1.5 animate-pulse rounded-full ${badge.indicator}`} />
           <span>{location.crowdLevel}</span>
         </div>
       </div>
 
-      {/* Occupancy Progress Bar */}
-      <div className="mb-3">
-        <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
-          <span className="text-slate-500">Live Occupancy</span>
+      <div className="mb-4">
+        <div className="mb-2.5 flex items-center justify-between text-xs font-semibold">
+          <span className="text-slate-500 dark:text-slate-400">Live Occupancy</span>
           <span
-            className={`font-mono font-bold text-xs px-2 py-0.5 rounded-md border ${
+            className={`rounded-md border px-2 py-0.5 font-mono text-xs font-bold ${
               location.occupancyPercentage >= 80
-                ? 'text-asu-maroon bg-rose-50 border-rose-200/80'
+                ? 'border-rose-200/80 bg-rose-50 text-asu-maroon dark:border-rose-900 dark:bg-rose-950/40'
                 : location.occupancyPercentage >= 50
-                ? 'text-slate-800 bg-slate-100 border-slate-200'
-                : 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                  ? 'border-slate-200 bg-slate-100 text-slate-800 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200'
+                  : 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40'
             }`}
           >
             {location.occupancyPercentage}%
           </span>
         </div>
-        <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+        <div className="h-2.5 w-full overflow-hidden rounded-full border border-slate-200/80 bg-slate-100 dark:border-slate-600 dark:bg-slate-800">
           <div
-            className={`h-full rounded-full transition-all duration-700 ease-out bg-gradient-to-r ${getProgressBarGradient(
+            className={`h-full rounded-full bg-gradient-to-r transition-[width] duration-1000 ease-out ${getProgressBarGradient(
               location.occupancyPercentage
             )}`}
-            style={{ width: `${Math.min(100, location.occupancyPercentage)}%` }}
+            style={{ width: `${barWidth}%` }}
           />
         </div>
       </div>
 
-      {/* Details Footer Grid */}
-      <div className="grid grid-cols-2 gap-2 pt-2.5 border-t border-slate-100 text-xs text-slate-600 font-medium">
+      <div className="grid grid-cols-2 gap-3 border-t border-slate-200 py-3.5 text-xs font-medium text-slate-600 dark:border-slate-700 dark:text-slate-300">
         <div className="flex items-center space-x-1.5">
-          <Users className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <Users className="h-3.5 w-3.5 shrink-0 text-slate-400" />
           <span className="truncate">
-            Capacity: <strong className="text-slate-800 font-mono font-semibold">{location.currentCapacity}</strong> / {location.maxCapacity}
+            Capacity:{' '}
+            <strong className="font-mono font-semibold text-slate-800 dark:text-slate-100">
+              {location.currentCapacity}
+            </strong>{' '}
+            / {location.maxCapacity}
           </span>
         </div>
 
-        <div className="flex items-center space-x-1.5 justify-end">
-          <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+        <div className="flex items-center justify-end space-x-1.5">
+          <Clock className="h-3.5 w-3.5 shrink-0 text-slate-400" />
           <span>
-            Avg Visit: <strong className="text-slate-800 font-semibold">{location.averageVisitDurationMinutes}m</strong>
+            Avg Visit:{' '}
+            <strong className="font-semibold text-slate-800 dark:text-slate-100">
+              {location.averageVisitDurationMinutes}m
+            </strong>
           </span>
         </div>
       </div>
 
-      {/* Clickable Google Maps Directions Link & Card CTA */}
-      <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2 text-[11px] font-semibold">
+      <div className="flex items-center justify-between gap-3 border-t border-slate-200 pt-3.5 text-[11px] font-semibold dark:border-slate-700">
         <a
           href={googleMapsDirectionsUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center space-x-1.5 py-1 px-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200/80 text-slate-600 hover:text-asu-maroon transition-all max-w-[68%] min-w-0"
+          className="inline-flex max-w-[68%] min-w-0 items-center space-x-1.5 rounded-lg border border-slate-200/80 bg-slate-50 px-3 py-1.5 text-slate-600 transition-all hover:bg-slate-100 hover:text-asu-maroon dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300"
           title={`Open Google Maps directions for ${location.name}`}
         >
-          <MapPin className="w-3.5 h-3.5 text-asu-maroon shrink-0" />
-          <span className="truncate underline decoration-slate-300 underline-offset-2">{location.address}</span>
-          <ExternalLink className="w-3 h-3 text-slate-400 hover:text-asu-maroon shrink-0" />
+          <MapPin className="h-3.5 w-3.5 shrink-0 text-asu-maroon" />
+          <span className="truncate underline decoration-slate-300 underline-offset-2">
+            {location.address}
+          </span>
+          <ExternalLink className="h-3 w-3 shrink-0 text-slate-400" />
         </a>
 
-        <div className="flex items-center space-x-1 text-slate-500 group-hover:text-asu-maroon group-hover:translate-x-0.5 transition-all shrink-0 py-1">
+        <div className="flex shrink-0 items-center space-x-1 py-1.5 text-slate-500 transition-all group-hover:translate-x-0.5 group-hover:text-asu-maroon dark:text-slate-400">
           <span>{isSelected ? 'Selected' : 'View Trend'}</span>
-          <ChevronRight className="w-3.5 h-3.5" />
+          <ChevronRight className="h-3.5 w-3.5" />
         </div>
       </div>
     </div>

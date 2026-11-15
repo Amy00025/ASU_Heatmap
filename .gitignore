@@ -13,6 +13,11 @@
 # production
 /build
 
+# local SQLite auth database (machine-local; do not commit)
+/data/*.db
+/data/*.db-*
+!/data/.gitkeep
+
 # misc
 .DS_Store
 *.pem
