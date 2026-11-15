@@ -8,6 +8,7 @@ import { AsuHeatMap } from '@/components/AsuHeatMap';
 import { CrowdChart } from '@/components/CrowdChart';
 import { FilterBar } from '@/components/FilterBar';
 import { LocationCard } from '@/components/LocationCard';
+import { WelcomeScreen } from '@/components/WelcomeScreen';
 import {
   Flame,
   RefreshCw,
@@ -27,6 +28,7 @@ import {
 } from 'lucide-react';
 
 export default function CrowdTrackerDashboard() {
+  const [showWelcome, setShowWelcome] = useState(true);
   const [locations, setLocations] = useState<LocationRecord[]>(mockLocations);
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(null);
   const [apiResult, setApiResult] = useState<FetchResult | null>({
@@ -116,6 +118,10 @@ export default function CrowdTrackerDashboard() {
       totalPeople,
     };
   }, [locations]);
+
+  if (showWelcome) {
+    return <WelcomeScreen onEnter={() => setShowWelcome(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50/70 text-slate-900 flex flex-col font-sans minimal-grid">
