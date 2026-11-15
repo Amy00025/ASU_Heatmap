@@ -1,4 +1,4 @@
-# 🔱 ASU Sun Devil Crowd Tracker
+#  ASU Sun Devil Crowd Tracker
 
 Real-time occupancy for ASU Tempe — SDFC, Hayden, MU, dining halls, and more — so students can see how busy campus is before they go.
 
