@@ -461,9 +461,9 @@ export const AsuHeatMap: React.FC<AsuHeatMapProps> = ({
   };
 
   return (
-    <div className="relative w-full h-full min-h-[480px] bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-xs flex flex-col">
-      {/* Top Map Toolbar Overlay */}
-      <div className="absolute top-3.5 left-3.5 right-3.5 z-[400] flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+    <div className="relative z-0 flex h-full min-h-[480px] w-full flex-col overflow-hidden rounded-2xl border border-slate-300/90 bg-white shadow-sm dark:border-slate-600 dark:bg-slate-900 isolate">
+      {/* Top Map Toolbar Overlay — keep below sticky site header (z-500) */}
+      <div className="pointer-events-none absolute left-3.5 right-3.5 top-3.5 z-20 flex flex-wrap items-center justify-between gap-2">
         {/* Status Pill with Clean Minimalist Styling */}
         <div className="pointer-events-auto flex items-center space-x-2 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-xs">
           <span className="relative flex h-2 w-2">
@@ -521,7 +521,7 @@ export const AsuHeatMap: React.FC<AsuHeatMapProps> = ({
 
       {/* Google Auth Notice Banner (if Billing isn't enabled) */}
       {googleAuthError && (
-        <div className="absolute top-16 left-3.5 right-3.5 z-[400] pointer-events-auto bg-amber-50/95 border border-amber-200 text-amber-900 px-3.5 py-2 rounded-xl shadow-sm flex items-center justify-between text-xs font-medium">
+        <div className="pointer-events-auto absolute left-3.5 right-3.5 top-16 z-20 flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50/95 px-3.5 py-2 text-xs font-medium text-amber-900 shadow-sm">
           <div className="flex items-center space-x-2">
             <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
             <span>{googleAuthError}</span>
@@ -539,8 +539,8 @@ export const AsuHeatMap: React.FC<AsuHeatMapProps> = ({
       <div ref={containerRef} className="w-full h-full min-h-[480px] z-10 flex-1" />
 
       {/* Bottom Info Status Bar */}
-      <div className="absolute bottom-3.5 left-3.5 right-3.5 z-[400] pointer-events-auto">
-        <div className="bg-white/90 backdrop-blur-md border border-slate-200/80 px-3.5 py-2 rounded-xl flex items-center justify-between shadow-xs">
+      <div className="pointer-events-auto absolute bottom-3.5 left-3.5 right-3.5 z-20">
+        <div className="flex items-center justify-between rounded-xl border border-slate-200/80 bg-white/90 px-3.5 py-2 shadow-xs backdrop-blur-md dark:border-slate-600 dark:bg-slate-900/90">
           <div className="flex items-center space-x-2 text-xs font-semibold text-slate-700">
             <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span>

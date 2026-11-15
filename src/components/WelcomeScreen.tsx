@@ -1,13 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Activity, ArrowRight, ArrowUpRight, Flame, MapPin } from 'lucide-react';
 
-interface WelcomeScreenProps {
-  onEnter: () => void;
-}
-
-export function WelcomeScreen({ onEnter }: WelcomeScreenProps) {
+export function WelcomeScreen() {
   return (
     <main className="welcome-screen" aria-label="ASU Sun Devil Crowd Tracker">
       <div className="welcome-orbit welcome-orbit-one" />
@@ -45,12 +42,12 @@ export function WelcomeScreen({ onEnter }: WelcomeScreenProps) {
             beat the gym rush, and make every Sun Devil minute count.
           </p>
 
-          <button className="welcome-enter-button" onClick={onEnter}>
+          <Link href="/login" className="welcome-enter-button">
             Explore the heatmap
             <ArrowRight aria-hidden="true" size={18} />
-          </button>
+          </Link>
           <p className="welcome-auto-note">
-            Your live campus dashboard is ready
+            Sign in with your ASU email to open the live dashboard
             <span className="welcome-loading-dots" aria-hidden="true">
               <i />
               <i />
@@ -158,9 +155,9 @@ export function WelcomeScreen({ onEnter }: WelcomeScreenProps) {
         <span className="welcome-footer-center">
           BUILT FOR THE TEMPE COMMUNITY
         </span>
-        <button className="welcome-skip-button" onClick={onEnter}>
-          Skip intro <ArrowRight aria-hidden="true" size={14} />
-        </button>
+        <Link href="/login" className="welcome-skip-button">
+          Sign in <ArrowRight aria-hidden="true" size={14} />
+        </Link>
       </footer>
     </main>
   );

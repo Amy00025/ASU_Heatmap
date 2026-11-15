@@ -16,6 +16,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html.dark body {
+  background-color: #020617;
+  color: #F1F5F9;
+}
+
 .welcome-screen {
   --welcome-maroon: #4b1027;
   --welcome-gold: #ffc627;
@@ -201,6 +206,7 @@ body {
   margin-top: 31px;
   padding: 16px 21px;
   color: #32101d;
+  text-decoration: none;
   border: 0;
   border-radius: 8px;
   background: var(--welcome-gold);
@@ -692,6 +698,7 @@ body {
   gap: 6px;
   padding: 7px 0 7px 7px;
   color: rgba(255, 250, 240, 0.68);
+  text-decoration: none;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -932,6 +939,11 @@ body {
   background-color: #F8FAFC;
   background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+html.dark .minimal-grid {
+  background-color: #020617;
+  background-image: radial-gradient(#1E293B 1px, transparent 1px);
 }
 
 /* Refined Subtle Accents */

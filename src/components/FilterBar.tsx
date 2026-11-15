@@ -28,7 +28,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const isFiltered = filterState.category !== 'All' || filterState.searchQuery !== '';
 
   return (
-    <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-3.5 shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+    <div className="flex w-full flex-col items-stretch justify-between gap-3 rounded-2xl border border-slate-300/90 bg-white p-3.5 shadow-sm md:flex-row md:items-center dark:border-slate-600 dark:bg-slate-900">
       {/* Category Pills */}
       <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
         {CATEGORIES.map((cat) => {

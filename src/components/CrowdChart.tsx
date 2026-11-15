@@ -78,7 +78,7 @@ export const CrowdChart: React.FC<CrowdChartProps> = ({
   };
 
   return (
-    <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+    <div className="flex w-full flex-col justify-between rounded-2xl border border-slate-300/90 bg-white p-5 shadow-sm dark:border-slate-600 dark:bg-slate-900">
       {/* Chart Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div className="flex items-center space-x-3">
