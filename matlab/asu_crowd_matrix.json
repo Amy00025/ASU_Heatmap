@@ -1,0 +1,117 @@
+{
+  "SDFC_Fitness": {
+    "capacity": 800,
+    "meanOccupancy": 49.1,
+    "peakOccupancy": 79,
+    "peakHour": "6 PM",
+    "hourlyCurve": [
+      50,
+      52,
+      47,
+      39,
+      34,
+      31,
+      33,
+      45,
+      53,
+      71,
+      79,
+      73,
+      55,
+      42,
+      33
+    ]
+  },
+  "Hayden_Library": {
+    "capacity": 1500,
+    "meanOccupancy": 55.9,
+    "peakOccupancy": 87,
+    "peakHour": "2 PM",
+    "hourlyCurve": [
+      36,
+      38,
+      58,
+      65,
+      76,
+      85,
+      87,
+      85,
+      79,
+      65,
+      56,
+      39,
+      30,
+      22,
+      18
+    ]
+  },
+  "Memorial_Union": {
+    "capacity": 2000,
+    "meanOccupancy": 51.0,
+    "peakOccupancy": 98,
+    "peakHour": "1 PM",
+    "hourlyCurve": [
+      20,
+      30,
+      49,
+      73,
+      94,
+      98,
+      83,
+      64,
+      51,
+      49,
+      47,
+      34,
+      32,
+      26,
+      15
+    ]
+  },
+  "Tooker_Dining": {
+    "capacity": 550,
+    "meanOccupancy": 44.1,
+    "peakOccupancy": 84,
+    "peakHour": "6 PM",
+    "hourlyCurve": [
+      12,
+      17,
+      31,
+      60,
+      74,
+      61,
+      38,
+      23,
+      33,
+      56,
+      84,
+      77,
+      54,
+      25,
+      17
+    ]
+  },
+  "Barrett_Dining": {
+    "capacity": 600,
+    "meanOccupancy": 43.7,
+    "peakOccupancy": 87,
+    "peakHour": "6 PM",
+    "hourlyCurve": [
+      7,
+      13,
+      17,
+      39,
+      65,
+      62,
+      46,
+      26,
+      33,
+      59,
+      87,
+      85,
+      60,
+      37,
+      19
+    ]
+  }
+}
